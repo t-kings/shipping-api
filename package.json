@@ -4,8 +4,12 @@
   "description": "An API to calculate the shipping cost of items",
   "main": "index.js",
   "author": "Tochukwu Kingsley Tochukwu",
-  "license": "MIT",
+  "license": "CC0",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/t-kings/shipping-api"
+  },
   "scripts": {
     "format": "prettier --write .",
     "build": "rimraf build && tsc",
