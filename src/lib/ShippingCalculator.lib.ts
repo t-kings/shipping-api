@@ -28,7 +28,7 @@ export class ShippingCalculator {
     width,
     height,
   }: ShippingCalculatorParams) {
-    this.costOfOneMeter = this.getCostOfOneMeter(Number(costOfOneMeter)); // * Influenced by location
+    this.costOfOneMeter = Number(costOfOneMeter);
     this.distanceInMeter = Number(distanceInMeter);
     this.weight = Number(weight);
     this.quantity = Number(quantity);
@@ -54,16 +54,5 @@ export class ShippingCalculator {
     );
 
     return cost * this.quantity;
-  };
-
-  private readonly getCostOfOneMeter = (costOfOneMeter: number): number => {
-    /**
-     * TODO: Get events in that city by that time and estimate the significant increase in price
-     * TODO: Get the number of requests in that city by that time and estimate the significant increase in price
-     * TODO: Get the season (christmas, new year celebrations, new year) of requests in that city by that time and estimate the significant increase in price
-     * TODO: Get location and also shipping service and estimate the significant increase in price
-     *
-     */
-    return costOfOneMeter;
   };
 }
