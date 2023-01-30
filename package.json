@@ -1,0 +1,31 @@
+{
+  "name": "shipping-api",
+  "version": "1.0.0",
+  "description": "An API to calculate the shipping cost of items",
+  "main": "index.js",
+  "author": "Tochukwu Kingsley Tochukwu",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "format": "prettier --write .",
+    "build": "rimraf build && tsc",
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/parser": "^5.49.0",
+    "eslint": "^8.0.1",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-config-standard-with-typescript": "^33.0.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-n": "^15.0.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-promise": "^6.0.0",
+    "prettier": "^2.8.3",
+    "rimraf": "^4.1.2",
+    "typescript": "*"
+  },
+  "dependencies": {
+    "yup": "^0.32.11"
+  }
+}
