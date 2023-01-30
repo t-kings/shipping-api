@@ -1,2 +1,2 @@
-export * from './calculate-percentage';
+export * from './shipping-cost';
 export * from './check-number';

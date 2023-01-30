@@ -10,8 +10,13 @@
     "sourceType": "module",
     "project": "./tsconfig.json"
   },
-  "extends": ["standard-with-typescript", "eslint:recommended", "prettier"],
-  "plugins": ["prettier"],
+  "extends": [
+    "standard-with-typescript",
+    "eslint:recommended",
+    "prettier",
+    "plugin:jest/recommended"
+  ],
+  "plugins": ["prettier", "jest"],
   "rules": {
     "prettier/prettier": "error"
   }
