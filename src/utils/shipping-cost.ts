@@ -58,10 +58,7 @@ export const getDifficultyInCarriage = (
   }
 
   return spillages.reduce((previous, current) => {
-    if (current > 0) {
-      return previous * current;
-    }
-    return previous;
+    return previous * current;
   }, 1);
 };
 
