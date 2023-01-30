@@ -11,7 +11,9 @@
     "build": "rimraf build && tsc",
     "lint": "eslint .",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "start:dev": "rimraf build && tsc -w",
+    "test:cov": "jest --coverage"
   },
   "devDependencies": {
     "@types/jest": "^29.4.0",
