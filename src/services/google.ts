@@ -11,6 +11,11 @@ import type {
 
 import type { Address } from '../interfaces';
 import { convertAddressComponentToString } from '../utils';
+import { EnvironmentVariables } from '../constants';
+
+const clientId = EnvironmentVariables.GOOGLE_CLIENT_ID;
+
+const clientSecret = EnvironmentVariables.GOOGLE_CLIENT_SECRET;
 
 const client = new Client();
 
@@ -27,8 +32,8 @@ export const getAddressInfo = async (
     const res = await client.geocode({
       params: {
         address: formattedAddress,
-        client_id: '',
-        client_secret: '',
+        client_id: clientId,
+        client_secret: clientSecret,
       },
     });
 
@@ -76,8 +81,8 @@ export const getDistance = async (
         origin,
         destination,
         mode: TravelMode.driving,
-        client_id: '',
-        client_secret: '',
+        client_id: clientId,
+        client_secret: clientSecret,
       },
     });
     return res.data.routes[0].legs[0].distance.value;
