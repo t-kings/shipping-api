@@ -1,7 +1,8 @@
 {
   "env": {
     "browser": true,
-    "es2021": true
+    "es2021": true,
+    "node": true
   },
   "overrides": [],
   "parser": "@typescript-eslint/parser",
@@ -16,8 +17,39 @@
     "prettier",
     "plugin:jest/recommended"
   ],
-  "plugins": ["prettier", "jest"],
+  "plugins": ["prettier", "jest", "jsdoc"],
   "rules": {
-    "prettier/prettier": "error"
+    "prettier/prettier": "error",
+    "require-jsdoc": [
+      "error",
+      {
+        "require": {
+          "FunctionDeclaration": true,
+          "MethodDefinition": true,
+          "ClassDeclaration": true
+        }
+      }
+    ],
+    "valid-jsdoc": [
+      "error",
+      {
+        "prefer": {
+          "arg": "param",
+          "argument": "param",
+          "class": "constructor",
+          "return": "returns",
+          "virtual": "abstract"
+        },
+        "preferType": {
+          "Boolean": "boolean",
+          "Number": "number",
+          "object": "Object",
+          "String": "string"
+        },
+        "requireReturn": false,
+        "requireParamDescription": false,
+        "requireReturnDescription": false
+      }
+    ]
   }
 }
