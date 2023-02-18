@@ -158,8 +158,8 @@ export class ShippingCalculator {
 
     // Get the cost of shipping per meter in the pickup city
     const costOfOneMeter = getCostOfOneMeter(
-      pickUpCity,
-      pickUpCountry as Countries,
+      pickUpCity.toLowerCase(),
+      pickUpCountry.toLowerCase() as Countries,
       this.dateOfShipping
     );
 

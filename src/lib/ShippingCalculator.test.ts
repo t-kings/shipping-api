@@ -3,8 +3,8 @@ import { ShippingCalculator } from './ShippingCalculator.lib';
 describe('ShippingCalculator', () => {
   const params = {
     addresses: {
-      pickup: '123 Main St, Anytown USA',
-      destination: '456 Broadway Ave, Anytown USA',
+      pickup: 'ikoyi, lagos',
+      destination: 'ikeja, lagos',
     },
     weight: 2,
     quantity: 3,
@@ -41,7 +41,7 @@ describe('ShippingCalculator', () => {
       ...params,
       addresses: {
         pickup: '123 Main St, Tokyo, Japan',
-        destination: '456 Broadway Ave, Anytown USA',
+        destination: '12 Main St, Tokyo, Japan',
       },
     };
     const shippingCalculator = new ShippingCalculator(invalidParams);
@@ -54,8 +54,8 @@ describe('ShippingCalculator', () => {
     const invalidParams = {
       ...params,
       addresses: {
-        pickup: '123 Main St, Anytown USA',
-        destination: '789 Broadway Ave, Anytown USA',
+        pickup: 'lagos, nigeria',
+        destination: 'enugu, nigeria',
       },
     };
     const shippingCalculator = new ShippingCalculator(invalidParams);

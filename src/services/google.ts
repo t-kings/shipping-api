@@ -74,7 +74,7 @@ export const getCityAndCountry = (
   components: GeocodeResult['address_components']
 ): { city: string; country: string } => {
   const componentWithLocality = components.find((c) =>
-    c.types.includes(PlaceType2.locality)
+    c.types.includes(PlaceType2.administrative_area_level_1)
   );
 
   const componentWithCountry = components.find((c) =>

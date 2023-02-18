@@ -28,12 +28,12 @@ describe('test google', () => {
     it('should extract city and country from geocode result', () => {
       const addressComponents = [
         {
-          long_name: 'Seattle',
-          types: [PlaceType2.locality],
+          long_name: 'Lagos',
+          types: [PlaceType2.administrative_area_level_1],
           short_name: '',
         },
         {
-          long_name: 'United States',
+          long_name: 'Nigeria',
           types: [PlaceType2.country],
           short_name: '',
         },
@@ -41,7 +41,7 @@ describe('test google', () => {
 
       const result = getCityAndCountry(addressComponents);
 
-      expect(result).toEqual({ city: 'Seattle', country: 'United States' });
+      expect(result).toEqual({ city: 'Lagos', country: 'Nigeria' });
     });
 
     it('should throw error if city cannot be found in geocode result', () => {
@@ -61,8 +61,8 @@ describe('test google', () => {
     it('should throw error if country cannot be found in geocode result', () => {
       const addressComponents = [
         {
-          long_name: 'Seattle',
-          types: [PlaceType2.locality],
+          long_name: 'Lagos',
+          types: [PlaceType2.administrative_area_level_1],
           short_name: '',
         },
       ];
