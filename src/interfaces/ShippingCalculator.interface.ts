@@ -15,7 +15,11 @@ export interface Addresses {
   destination: Address;
 }
 
-export interface Address {
+export interface AddressComponent {
   country: string;
-  street: string;
+  street?: string;
+  city?: string;
+  houseNumber?: string | number;
 }
+
+export type Address = AddressComponent | string;

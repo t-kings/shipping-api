@@ -1,9 +1,10 @@
+import type { Countries } from '../enums';
 import type { CityAndBasePriceValue, SeasonAndPriceSurge } from '../interfaces';
 import { cityAndBasePrice } from '../resources';
 import { seasonsAndPriceSurge } from '../resources/seasons-and-price-surge';
 
 export const getBasePriceOfCity = (
-  country: string,
+  country: Countries,
   city: string
 ): CityAndBasePriceValue => {
   try {
@@ -47,7 +48,7 @@ export const getSeasonsPriceSurge = (date?: string): number => {
 
 export const getCostOfOneMeter = (
   city: string,
-  country: string,
+  country: Countries,
   dateOfShipping?: string
 ): number => {
   /**

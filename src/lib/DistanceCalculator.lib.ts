@@ -1,5 +1,6 @@
-import { Address, type ShippingCalculatorParams } from '../interfaces';
-import { getAddressInfo } from '../services';
+import { Countries } from '../enums';
+import type { Address, ShippingCalculatorParams } from '../interfaces';
+import { getAddressInfo, getCityAndCountry, getDistance } from '../services';
 import {
   getCostImpactOfShippingDifficulty,
   getDistanceCost,
@@ -8,7 +9,7 @@ import {
 } from '../utils';
 import { getCostOfOneMeter } from '../utils/base-cost';
 
-export class ShippingCalculator {
+export class DistanceCalculator {
   private readonly quantity: number;
   private readonly pickupAddress: Address;
   private readonly destinationAddress: Address;
@@ -48,15 +49,41 @@ export class ShippingCalculator {
     const destinationAddressInfo = await getAddressInfo(
       this.destinationAddress
     );
-    const city = pickupAddressInfo.geometry.
-    const country = '';
+    const { city: pickUpCity, country: pickUpCountry } =
+      getCityAndCountry(pickupAddressInfo);
+    const { city: destinationCity, country: destinationCountry } =
+      getCityAndCountry(destinationAddressInfo);
+
+    if (pickUpCountry !== destinationCountry) {
+      throw new Error(
+        'We do not calculate shipping between different countries at the moment'
+      );
+    }
+    const countryFromEnums = Object.values(Countries).find(
+      (country: string) => country.toLowerCase() === pickUpCountry.toLowerCase()
+    );
+    if (typeof countryFromEnums !== 'string') {
+      throw new Error(
+        `We do not calculate shipping cost for ${pickUpCountry} at the moment.`
+      );
+    }
+
+    if (pickUpCity !== destinationCity) {
+      throw new Error(
+        'We do not calculate shipping between different cities at the moment'
+      );
+    }
+
     const costOfOneMeter = getCostOfOneMeter(
-      city,
-      country,
+      pickUpCity,
+      pickUpCountry as Countries,
       this.dateOfShipping
     );
 
-    const distance = getDistance();
+    const distance = await getDistance(
+      pickupAddressInfo.geometry.location,
+      destinationAddressInfo.geometry.location
+    );
     return this.calculateShippingInSameCity(distance, costOfOneMeter);
   };
 

@@ -1,20 +1,32 @@
-import { Client } from '@googlemaps/google-maps-services-js';
+import {
+  Client,
+  PlaceType2,
+  TravelMode,
+} from '@googlemaps/google-maps-services-js';
 
 import type {
   GeocodeResult,
-  AddressType,
+  LatLng,
 } from '@googlemaps/google-maps-services-js';
-import type { Address } from '../interfaces';
 
-const client = new Client({});
+import type { Address } from '../interfaces';
+import { convertAddressComponentToString } from '../utils';
+
+const client = new Client();
 
 export const getAddressInfo = async (
   address: Address
 ): Promise<GeocodeResult> => {
   try {
+    let formattedAddress = '';
+    if (typeof address === 'string') {
+      formattedAddress = address;
+    } else {
+      formattedAddress = convertAddressComponentToString(address);
+    }
     const res = await client.geocode({
       params: {
-        address: `${address.street}, ${address.country}`,
+        address: formattedAddress,
         client_id: '',
         client_secret: '',
       },
@@ -28,11 +40,48 @@ export const getAddressInfo = async (
   }
 };
 
-export const getCity = (object: GeocodeResult): Record<string, string> => {
-  const address: Record<string, string> = {};
-  const addressComponents = object.address_components;
-  addressComponents.reduce((element) => {
-    address[element.types[0]] = element.long_name;
-  });
-  return address;
+export const getCityAndCountry = (
+  geocodeResult: GeocodeResult
+): { city: string; country: string } => {
+  const components = geocodeResult.address_components;
+  const componentWithLocality = components.find((c) =>
+    c.types.includes(PlaceType2.locality)
+  );
+
+  const componentWithCountry = components.find((c) =>
+    c.types.includes(PlaceType2.country)
+  );
+
+  const city = componentWithLocality?.long_name;
+  const country = componentWithCountry?.long_name;
+
+  if (city === undefined) {
+    throw new Error('City cannot be gotten from this address');
+  }
+
+  if (country === undefined) {
+    throw new Error('Country cannot be gotten from this address');
+  }
+
+  return { city, country };
+};
+
+export const getDistance = async (
+  origin: LatLng,
+  destination: LatLng
+): Promise<number> => {
+  try {
+    const res = await client.directions({
+      params: {
+        origin,
+        destination,
+        mode: TravelMode.driving,
+        client_id: '',
+        client_secret: '',
+      },
+    });
+    return res.data.routes[0].legs[0].distance.value;
+  } catch {
+    throw new Error('An internal error occurred');
+  }
 };

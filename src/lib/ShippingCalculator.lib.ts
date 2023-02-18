@@ -18,8 +18,7 @@ export class ShippingCalculator {
   private readonly length: number;
 
   constructor({
-    costOfOneMeter,
-    distanceInMeter,
+    addresses: { destination, pickup },
     weight,
     quantity,
     costOfItem,
