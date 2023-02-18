@@ -2,6 +2,7 @@ import { Countries } from '../enums';
 import type { CityAndBasePriceValue } from '../interfaces';
 
 /**
+ * A mapping of cities within each country to their base prices and fuel surges
  * All values are in USD
  */
 export const cityAndBasePrice: Record<

@@ -1,6 +1,7 @@
 import type { SeasonAndPriceSurge } from '../interfaces';
 
 /**
+ * An array of seasonal price surges and their corresponding event names
  * All values are in USD
  */
 export const seasonsAndPriceSurge: SeasonAndPriceSurge[] = [
