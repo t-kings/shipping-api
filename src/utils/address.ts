@@ -1,5 +1,10 @@
 import type { AddressComponent } from '../interfaces';
 
+/**
+ * Converts an address component object into a string.
+ * @param {AddressComponent} addressComponent - The address component object to convert to a string.
+ * @returns {string} The string representation of the address component object.
+ */
 export const convertAddressComponentToString = ({
   city,
   houseNumber,
