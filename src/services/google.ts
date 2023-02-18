@@ -17,6 +17,7 @@ import type {
 import type { Address } from '../interfaces';
 import { convertAddressComponentToString } from '../utils';
 import { EnvironmentVariables } from '../constants';
+import { customLog } from './logger.service';
 
 /**
  * The Google Maps api key to be used to access the API.
@@ -52,9 +53,12 @@ export const getAddressInfo = async (
     });
 
     const place = res.data.results[0];
-
+    if (place === undefined || place === null) {
+      throw new Error('Cannot find this location');
+    }
     return place;
   } catch (error) {
+    customLog.error((error as Error).message);
     throw new Error('Cannot find this location');
   }
 };
