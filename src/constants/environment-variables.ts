@@ -5,8 +5,7 @@ dotenv.config();
 /**
  * Object containing environment variables used by the application.
  * @typedef {Object} EnvironmentVariables
- * @property {string} GOOGLE_CLIENT_ID - The Google OAuth client ID.
- * @property {string} GOOGLE_CLIENT_SECRET - The Google OAuth client secret.
+ * @property {string} GOOGLE_API_KEY - The Google API key.
  */
 
 /**
@@ -14,6 +13,5 @@ dotenv.config();
  * @type {EnvironmentVariables}
  */
 export const EnvironmentVariables: EnvironmentVariable = {
-  GOOGLE_CLIENT_ID: String(process.env.GOOGLE_CLIENT_ID),
-  GOOGLE_CLIENT_SECRET: String(process.env.GOOGLE_CLIENT_SECRET),
+  GOOGLE_API_KEY: String(process.env.GOOGLE_API_KEY),
 };

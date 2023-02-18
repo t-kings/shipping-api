@@ -19,14 +19,9 @@ import { convertAddressComponentToString } from '../utils';
 import { EnvironmentVariables } from '../constants';
 
 /**
- * The Google Maps client ID to be used to access the API.
+ * The Google Maps api key to be used to access the API.
  */
-const clientId = EnvironmentVariables.GOOGLE_CLIENT_ID;
-
-/**
- * The Google Maps client secret to be used to access the API.
- */
-const clientSecret = EnvironmentVariables.GOOGLE_CLIENT_SECRET;
+const key = EnvironmentVariables.GOOGLE_API_KEY;
 
 /**
  * The Google Maps API client.
@@ -52,8 +47,7 @@ export const getAddressInfo = async (
     const res = await googleClient.geocode({
       params: {
         address: formattedAddress,
-        client_id: clientId,
-        client_secret: clientSecret,
+        key,
       },
     });
 
@@ -114,8 +108,7 @@ export const getDistance = async (
         origin,
         destination,
         mode: TravelMode.driving,
-        client_id: clientId,
-        client_secret: clientSecret,
+        key,
       },
     });
 

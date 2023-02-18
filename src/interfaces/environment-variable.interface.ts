@@ -4,14 +4,8 @@
  */
 export interface EnvironmentVariable {
   /**
-   * The Google client ID.
+   * The Google api key
    * @type {string}
    */
-  GOOGLE_CLIENT_ID: string;
-
-  /**
-   * The Google client secret.
-   * @type {string}
-   */
-  GOOGLE_CLIENT_SECRET: string;
+  GOOGLE_API_KEY: string;
 }
