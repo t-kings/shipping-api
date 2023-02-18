@@ -13,19 +13,19 @@ export const convertAddressComponentToString = ({
 }: AddressComponent): string => {
   let value = '';
   if (houseNumber !== null && houseNumber !== undefined) {
-    value = `, ${houseNumber}`;
+    value = `${value}, ${houseNumber}`;
   }
 
   if (street !== null && street !== undefined) {
-    value = `, ${street}`;
+    value = `${value}, ${street}`;
   }
 
   if (city !== null && city !== undefined) {
-    value = `, ${city}`;
+    value = `${value}, ${city}`;
   }
 
   if (country !== null && country !== undefined) {
-    value = `, ${country}`;
+    value = `${value}, ${country}`;
   }
-  return value.replace(', ', '').trim();
+  return value.substring(1).trim();
 };

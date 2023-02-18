@@ -9,7 +9,7 @@ describe('convertAddressComponentToString', () => {
       country: 'France',
     };
     const result = convertAddressComponentToString(addressComponent);
-    expect(result).toEqual('Paris, 20, Rue de Rivoli, France');
+    expect(result).toEqual('20, Rue de Rivoli, Paris, France');
   });
 
   test('should ignore null and undefined properties of the address component', () => {
