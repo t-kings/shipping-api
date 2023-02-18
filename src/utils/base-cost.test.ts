@@ -1,4 +1,5 @@
 import { Countries } from '../enums';
+import { cityAndBasePrice } from '../resources';
 import {
   getBasePriceOfCity,
   getSeasonsPriceSurge,
@@ -7,8 +8,8 @@ import {
 
 describe('getBasePriceOfCity', () => {
   it('returns base price and fuel surge of a city', () => {
-    const result = getBasePriceOfCity(Countries.Nigeria, 'New York');
-    expect(result).toEqual({ basePrice: 1, fuelSurge: 1.2 });
+    const result = getBasePriceOfCity(Countries.Nigeria, 'lagos');
+    expect(result).toEqual(cityAndBasePrice[Countries.Nigeria]['lagos']);
   });
 
   it('throws an error if location is not supported', () => {

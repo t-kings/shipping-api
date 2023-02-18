@@ -2,6 +2,8 @@ import { validateEnvironmentVariables } from './environment-variables.validation
 
 describe('validateEnvironmentVariables', () => {
   it('should exit the process if any environment variable is missing', () => {
+    const processSpy = jest.spyOn(process, 'exit').mockImplementation();
+
     // Mock the customLog.error method so we can check if it is called
     const mockLogError = jest.fn();
     jest.mock('../services', () => ({
@@ -19,6 +21,8 @@ describe('validateEnvironmentVariables', () => {
 
     // Reset the mock implementation
     jest.resetModules();
+
+    processSpy.mockRestore();
   });
 
   it('should not exit the process if all environment variables are present', () => {
