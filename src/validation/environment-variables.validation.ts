@@ -1,14 +1,23 @@
+/**
+ * Provides a function to validate environment variables against a Yup schema.
+ * @module EnvironmentValidator
+ */
+
 import * as yup from 'yup';
 import { EnvironmentVariables } from '../constants';
-import { logError } from '../services';
+import { customLog } from '../services';
 
 /**
- * Validates the presence of each environment variable defined in the `EnvironmentVariables` object.
+ * Validates environment variables against a Yup schema and logs an error if any are missing.
+ * @returns {void}
  */
-const schema = yup.string().required();
-Object.entries(EnvironmentVariables).forEach(([key, value]) => {
-  const isValid = schema.isValidSync(EnvironmentVariables);
-  if (!isValid) {
-    logError(`${key} is missing from .env file`);
-  }
-});
+export const validateEnvironmentVariables = (): void => {
+  const schema = yup.string().required();
+  Object.entries(EnvironmentVariables).forEach(([key, value]) => {
+    const isValid = schema.isValidSync(value);
+    if (!isValid) {
+      customLog.error(`${key} is missing from .env file`);
+      process.exit();
+    }
+  });
+};

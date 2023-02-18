@@ -73,6 +73,21 @@ export class ShippingCalculator {
    */
   private readonly dateOfShipping: string;
 
+  /**
+   * ShippingCalculator constructor function
+   * @param {Object} options - The options object
+   * @param {Object} options.addresses - The pickup and destination addresses
+   * @param {string} options.addresses.pickup - The pickup address
+   * @param {string} options.addresses.destination - The destination address
+   * @param {number} options.weight - The weight of the shipment
+   * @param {number} options.quantity - The quantity of items being shipped
+   * @param {number} options.costOfItem - The cost of the items being shipped
+   * @param {boolean} options.isVulnerable - Indicates whether the items being shipped are vulnerable
+   * @param {number} options.length - The length of the shipment
+   * @param {number} options.width - The width of the shipment
+   * @param {number} options.height - The height of the shipment
+   * @param {string} options.dateOfShipping - The date the shipment is to be sent
+   */
   constructor({
     addresses: { pickup, destination },
     weight,
@@ -99,7 +114,7 @@ export class ShippingCalculator {
   /**
    * Asynchronously calculates the shipping cost between two addresses.
    *
-   * @returns A promise that resolves to the total shipping cost.
+   * @returns {Promise<number>} A promise that resolves to the total shipping cost.
    *
    * @throws {Error} If the pickup and destination addresses are not in the same city or country, or if the cost of shipping is not supported for the pickup country.
    */
@@ -111,10 +126,11 @@ export class ShippingCalculator {
     );
 
     // Extract city and country from pickup and destination address
-    const { city: pickUpCity, country: pickUpCountry } =
-      getCityAndCountry(pickupAddressInfo);
+    const { city: pickUpCity, country: pickUpCountry } = getCityAndCountry(
+      pickupAddressInfo.address_components
+    );
     const { city: destinationCity, country: destinationCountry } =
-      getCityAndCountry(destinationAddressInfo);
+      getCityAndCountry(destinationAddressInfo.address_components);
 
     // Check if shipping is between different countries
     if (pickUpCountry !== destinationCountry) {
@@ -160,10 +176,10 @@ export class ShippingCalculator {
   /**
    * Calculates the shipping cost for a shipment within the same city.
    *
-   * @param distance - The distance between the pickup and destination addresses.
-   * @param costOfOneMeter - The cost of shipping per meter in the pickup city.
+   * @param {number} distance - The distance between the pickup and destination addresses.
+   * @param {number} costOfOneMeter - The cost of shipping per meter in the pickup city.
    *
-   * @returns The total shipping cost.
+   * @returns {number} The total shipping cost.
    */
   public readonly calculateShippingInSameCity = (
     distance: number,

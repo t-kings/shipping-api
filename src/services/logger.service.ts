@@ -3,6 +3,10 @@
  * @param {string} message - The error message to log.
  * @returns {void}
  */
-export const logError = (message: string): void => {
-  console.log(message);
+const logError = (message: string): void => {
+  console.error(message);
+};
+
+export const customLog = {
+  error: logError,
 };

@@ -31,7 +31,7 @@ const clientSecret = EnvironmentVariables.GOOGLE_CLIENT_SECRET;
 /**
  * The Google Maps API client.
  */
-const client = new Client();
+export const googleClient = new Client();
 
 /**
  * Returns the Google Maps API geocode result for a given address.
@@ -49,7 +49,7 @@ export const getAddressInfo = async (
     } else {
       formattedAddress = convertAddressComponentToString(address);
     }
-    const res = await client.geocode({
+    const res = await googleClient.geocode({
       params: {
         address: formattedAddress,
         client_id: clientId,
@@ -66,15 +66,15 @@ export const getAddressInfo = async (
 };
 
 /**
- * Returns the city and country for a given geocode result.
- * @param {GeocodeResult} geocodeResult - The geocode result to get the city and country from.
- * @returns {{ city: string; country: string }} The city and country for the geocode result.
- * @throws {Error} If the city or country cannot be found in the geocode result.
+ * Retrieves the city and country information for a given geocode result.
+ *
+ * @param {GeocodeResult.address_components} components - The geocode result to extract the city and country from.
+ * @returns {{city: string, country: string}} The extracted city and country.
+ * @throws {Error} If the city or country information cannot be found in the geocode result.
  */
 export const getCityAndCountry = (
-  geocodeResult: GeocodeResult
+  components: GeocodeResult['address_components']
 ): { city: string; country: string } => {
-  const components = geocodeResult.address_components;
   const componentWithLocality = components.find((c) =>
     c.types.includes(PlaceType2.locality)
   );
@@ -109,7 +109,7 @@ export const getDistance = async (
   destination: LatLng
 ): Promise<number> => {
   try {
-    const res = await client.directions({
+    const res = await googleClient.directions({
       params: {
         origin,
         destination,
