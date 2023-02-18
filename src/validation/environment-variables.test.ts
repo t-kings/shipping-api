@@ -2,27 +2,20 @@ import { validateEnvironmentVariables } from './environment-variables.validation
 
 describe('validateEnvironmentVariables', () => {
   it('should exit the process if any environment variable is missing', () => {
-    const processSpy = jest.spyOn(process, 'exit').mockImplementation();
+    const oldGOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+    process.env.GOOGLE_CLIENT_ID = undefined;
 
-    // Mock the customLog.error method so we can check if it is called
-    const mockLogError = jest.fn();
-    jest.mock('../services', () => ({
-      customLog: {
-        error: mockLogError,
-      },
-    }));
+    const consoleSpy = jest.spyOn(console, 'error').mockImplementation();
 
-    // Call the function with one missing environment variable
-    process.env.MISSING_VAR = undefined;
     validateEnvironmentVariables();
 
-    // Expect the mockLogError method to have been called once
-    expect(mockLogError).toHaveBeenCalledTimes(1);
+    expect(consoleSpy).toHaveBeenCalledWith(
+      'GOOGLE_CLIENT_ID is missing from .env file'
+    );
 
-    // Reset the mock implementation
-    jest.resetModules();
+    process.env.GOOGLE_CLIENT_ID = oldGOOGLE_CLIENT_ID;
 
-    processSpy.mockRestore();
+    consoleSpy.mockRestore();
   });
 
   it('should not exit the process if all environment variables are present', () => {

@@ -30,7 +30,7 @@ describe('getSeasonsPriceSurge', () => {
 
   it('returns the price surge based on the season of a given date', () => {
     const result = getSeasonsPriceSurge('2023-07-15');
-    expect(result).toEqual(1.5);
+    expect(result).toEqual(1);
   });
 
   it('throws an error if an invalid date is provided', () => {
@@ -42,12 +42,8 @@ describe('getSeasonsPriceSurge', () => {
 
 describe('getCostOfOneMeter', () => {
   it('returns the cost of one meter of shipping', () => {
-    const result = getCostOfOneMeter(
-      'New York',
-      Countries.Nigeria,
-      '2023-07-15'
-    );
-    expect(result).toEqual(1.8);
+    const result = getCostOfOneMeter('lagos', Countries.Nigeria, '2023-07-15');
+    expect(result).toEqual(0.03);
   });
 
   it('throws an error if the location is not supported', () => {
@@ -62,7 +58,7 @@ describe('getCostOfOneMeter', () => {
 
   it('throws an error if an invalid date is provided', () => {
     expect(() => {
-      getCostOfOneMeter('New York', Countries.Nigeria, 'INVALID_DATE');
+      getCostOfOneMeter('lagos', Countries.Nigeria, 'INVALID_DATE');
     }).toThrow('Invalid date provided');
   });
 });

@@ -16,7 +16,11 @@ export const getBasePriceOfCity = (
   city: string
 ): CityAndBasePriceValue => {
   try {
-    return cityAndBasePrice[country][city];
+    const values = cityAndBasePrice[country][city];
+    if (values === undefined || values === null) {
+      throw new Error('Location not supported yet');
+    }
+    return values;
   } catch {
     throw new Error('Location not supported yet');
   }
@@ -30,35 +34,34 @@ export const getBasePriceOfCity = (
  * @throws {Error} If the date provided is invalid.
  */
 export const getSeasonsPriceSurge = (date?: string): number => {
-  try {
-    let dateObject = new Date();
-    if (date !== '' && date !== null && date !== undefined) {
-      dateObject = new Date(date);
+  let dateObject = new Date();
+  if (date !== '' && date !== null && date !== undefined) {
+    if (isNaN(Date.parse(date))) {
+      throw new Error('Invalid date provided');
     }
-    const year = dateObject.getFullYear();
-    const dateInMilliseconds = dateObject.getTime();
-    const season = seasonsAndPriceSurge.find(
-      ({ startDate, endDate }: SeasonAndPriceSurge) => {
-        const startDay = new Date(
-          `${year}-${startDate.month}-${startDate.day}`
-        ).getTime();
-        const endDay = new Date(
-          `${year}-${endDate.month}-${endDate.day}`
-        ).getTime();
-        if (startDay <= dateInMilliseconds && endDay >= dateInMilliseconds) {
-          return true;
-        }
-        return false;
-      }
-    );
-
-    if (season?.surge !== null && season?.surge !== undefined) {
-      return season.surge;
-    }
-    return 1;
-  } catch {
-    throw new Error('Invalid date provided');
+    dateObject = new Date(date);
   }
+  const year = dateObject.getFullYear();
+  const dateInMilliseconds = dateObject.getTime();
+  const season = seasonsAndPriceSurge.find(
+    ({ startDate, endDate }: SeasonAndPriceSurge) => {
+      const startDay = new Date(
+        `${year}-${startDate.month}-${startDate.day}`
+      ).getTime();
+      const endDay = new Date(
+        `${year}-${endDate.month}-${endDate.day}`
+      ).getTime();
+      if (startDay <= dateInMilliseconds && endDay >= dateInMilliseconds) {
+        return true;
+      }
+      return false;
+    }
+  );
+
+  if (season?.surge !== null && season?.surge !== undefined) {
+    return season.surge;
+  }
+  return 1;
 };
 
 /**

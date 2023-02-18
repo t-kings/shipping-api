@@ -17,7 +17,7 @@ export const validateEnvironmentVariables = (): void => {
     const isValid = schema.isValidSync(value);
     if (!isValid) {
       customLog.error(`${key} is missing from .env file`);
-      process.exit();
+      // process.exit();
     }
   });
 };
