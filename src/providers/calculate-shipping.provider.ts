@@ -16,12 +16,17 @@ const calculateShipping = async (
     const calculator = new ShippingCalculator(params);
 
     const shippingCost = await calculator.calculateShipping();
-    console.log({ shippingCost });
 
     res.status(200).json({
       message: 'Shipping cost calculated successfully',
       data: {
-        shippingCost,
+        shippingCost: shippingCost.toLocaleString('en-US', {
+          style: 'decimal',
+          useGrouping: true,
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        }),
+        currency: 'USD',
       },
     });
   } catch (error) {
