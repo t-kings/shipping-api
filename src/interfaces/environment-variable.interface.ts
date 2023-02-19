@@ -8,4 +8,10 @@ export interface EnvironmentVariable {
    * @type {string}
    */
   GOOGLE_API_KEY: string;
+
+  /**
+   * The server port for this app to listen to http requests
+   * @type {number}
+   */
+  SERVER_PORT: number;
 }

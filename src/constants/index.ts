@@ -5,3 +5,4 @@
 
 export * from './shipping-calculator';
 export * from './environment-variables';
+export * from './response.constant';

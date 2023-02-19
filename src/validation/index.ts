@@ -4,3 +4,4 @@
  */
 
 export * from './environment-variables.validation';
+export * from './calculate-shipping.validation';
