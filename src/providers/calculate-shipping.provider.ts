@@ -16,6 +16,7 @@ const calculateShipping = async (
     const calculator = new ShippingCalculator(params);
 
     const shippingCost = await calculator.calculateShipping();
+    console.log({ shippingCost });
 
     res.status(200).json({
       message: 'Shipping cost calculated successfully',
